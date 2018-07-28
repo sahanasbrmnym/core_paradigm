@@ -6,19 +6,20 @@ import pickle
 import lxml
 from lxml.html import fromstring
 from lxml.html import tostring
-import paradigm
+import paradigm #a .py file included in git 
 
 # print("done imports")
-
-# clean fn: txt file to lower case alphabet only string
-
-# """Collecting .txt files to clean"""
-
 to_clean = []
 error_files = []
 homeDir = os.getenv("HOME")
-rootDir = os.path.join(homeDir,"core_paradigm")
+rootDir = os.path.join(homeDir,"CORE_paradigm")
 journalRootDir = os.path.join(rootDir,"journal_data")
+usukDir = os.path.join(rootDir,"us2uk")
+
+
+# """Collecting .txt files to clean"""
+
+
 
 JEP = paradigm.preprocessFiles(os.path.join(journalRootDir,"JEP"))
 QJE = paradigm.preprocessFiles(os.path.join(journalRootDir,"QJE"))

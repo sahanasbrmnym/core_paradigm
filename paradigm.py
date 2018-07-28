@@ -1,8 +1,17 @@
 import os
 import re
 import itertools
+from itertools import chain
 import lxml
+import lxml.html
 import unicodedata
+
+homeDir = os.getenv("HOME")
+rootDir = os.path.join(homeDir,"core_paradigm")
+usukDir = os.path.join(rootDir,"us2uk")
+us_dir = os.path.join(usukDir,"US_words.txt")
+uk_dir = os.path.join(usukDir,"UK_words.txt")
+
 
 def clean_txt(txt_path,regex=None):
     if regex is None:
@@ -15,7 +24,8 @@ def clean_txt(txt_path,regex=None):
     output = lxml.html.fromstring(output).text_content() #removing weird html stuff
     output = regex.sub('',output)
     output = regex.sub('',output)
-    return output
+    standardiz_s(output,us_dir,uk_dir) 
+
 
 def preprocessFiles(rootDir):
     text = []
@@ -29,6 +39,25 @@ def preprocessFiles(rootDir):
                     print(path)
     return text
 
+
+#standardizes UK and US spelling
+def standardiz_s(string_input,us_dir,uk_dir):
+    #getting US/UK word lists
+
+    with open(uk_dir, 'r') as f:    
+        UK = f.read().replace('\u2028',' ').replace('\xa0','').splitlines()
+        UK = UK[0].split()
+    
+    with open(us_dir, 'r') as f:    
+        US = f.read().replace('\u2028',' ').replace('\xa0','').splitlines()
+        US  = US[0].split()
+    
+    for us_ind in range(len(US)):
+        if US[us_ind] in string_input:
+            string_input = string_input.replace(US[us_ind], UK[us_ind])
+    return(string_input)
+
+#cleanup for NBER texts
 def cleanNBER(textList):
     pattern=re.compile(".*?abstract(.*?)(?:references|bibliography|$).*") 
     problem = [] #697/17647 nber papers were problems
