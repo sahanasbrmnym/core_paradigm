@@ -84,12 +84,12 @@ print("stopwords made")
 
 cleaned_texts = []
 
-for i in range(len(training_flat)):
+for i in range(len(training_data_bigrammed)):
     if i%1000 == 0:
         print(i)
     #tokenize document
     #lower_case = training_flat[i].lower()
-    tokens = tokenizer.tokenize(training_flat[i])
+    tokens = tokenizer.tokenize(training_data_bigrammed[i])
     
     
     #stopwords
