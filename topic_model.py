@@ -13,7 +13,7 @@ from gensim.models.phrases import Phraser
 
 homeDir = os.getenv("HOME")
 
-rootDir = os.path.join(homeDir,"CORE_paradigm")
+rootDir = os.path.join(homeDir,"core_data")
 outputDir = os.path.join(rootDir,"pickles")
 
 with open(os.path.join(outputDir,"journals.pkl"),"rb") as f:
