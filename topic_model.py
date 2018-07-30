@@ -13,7 +13,7 @@ from gensim.models.phrases import Phraser
 
 homeDir = os.getenv("HOME")
 
-rootDir = os.path.join(homeDir,"core_paradigm")
+rootDir = os.path.join(homeDir,"CORE_paradigm")
 outputDir = os.path.join(rootDir,"pickles")
 
 with open(os.path.join(outputDir,"journals.pkl"),"rb") as f:
@@ -57,30 +57,16 @@ training_data_bigrammed = [' '.join(i) for i in bigrammed]
 print("training_data_bigrammed made")
 
 
+#loading stopwords
+with open("stopwords.txt","r") as f:
+    stopwords = f.readlines()
+    stopwords = [l.strip('\n\r') for l in stopwords]
+print("stopwords made")
+
 
 # cleaning
 tokenizer = RegexpTokenizer(r'\w+')
-stopwords = get_stop_words('en')
 stemmer = PorterStemmer()
-#additional to extend
-additional = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", 
-              "your", "yours", "yourself", "yourselves", "he", "him", "his", "himself", 
-              "she", "her", "hers", "herself", "it", "its", "itself", "they", "them", 
-              "their", "theirs", "themselves", "what", "which", "who", "whom", "this", 
-              "that", "these", "those", "am", "is", "are", "was", "were", "be", "been",
-              "being", "have", "has", "had", "having", "do", "does", "did", "doing",
-              "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", 
-              "while", "of", "at", "by", "for", "with", "about", "against", "between", 
-              "into", "through", "during", "before", "after", "above", "below", "to", 
-              "from", "up", "down", "in", "out", "on", "off", "over", "under", "again", 
-              "further", "then", "once", "here", "there", "when", "where", "why",
-              "how", "all", "any", "both", "each", "few", "more", "most", "other",
-              "some", "such", "no", "nor", "not", "only", "own", "same", "so",
-              "than", "too", "very", "s", "t", "can", "will", "just", "don", "should",
-              "now", "may", "one","upon","great","bigger","also","year"]
-stopwords.extend([i for i in additional if i not in stopwords])
-
-print("stopwords made")
 
 cleaned_texts = []
 
